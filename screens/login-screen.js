@@ -89,6 +89,7 @@ export const LoginScreen = connect(
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor: "#ffffff"
   }
 });

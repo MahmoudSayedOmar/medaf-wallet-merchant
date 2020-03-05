@@ -5,12 +5,17 @@ import { Button, Icon, Text } from "native-base";
 export function HomeButton(props) {
   return (
     <Button
-      style={{ flexDirection: "column" }}
-      transparent
+      style={{
+        flexDirection: "column",
+        backgroundColor: "#D0C21D",
+        borderColor: "#202945",
+        borderWidth: 2,
+        height: 80
+      }}
       onPress={props.onPress}
     >
-      <Icon style={{ color: "#FFFFFF", fontSize: 35 }} name={props.iconName} />
-      <Text style={{ color: "#FFFFFF", fontSize: 20 }}>{props.text}</Text>
+      <Icon style={{ color: "#202945", fontSize: 35 }} name={props.iconName} />
+      <Text style={{ color: "#202945", fontSize: 20 }}>{props.text}</Text>
     </Button>
   );
 }

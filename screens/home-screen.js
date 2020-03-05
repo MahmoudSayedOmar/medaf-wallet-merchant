@@ -25,7 +25,7 @@ class HomeContainer extends Component {
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
           <HomeButton
             iconName="search"
-            text="Scana bar code"
+            text="Click to scan bar code"
             onPress={() => this.props.navigation.navigate("Pay")}
           />
         </View>
@@ -42,6 +42,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "#60b4c2"
+    backgroundColor: "#ffffff"
   }
 });

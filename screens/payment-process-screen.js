@@ -69,17 +69,17 @@ class PaymentProcessContainer extends Component {
 
   render() {
     const progressStepsStyle = {
-      activeStepIconBorderColor: "#ffa500",
-      activeLabelColor: "#686868",
-      activeStepNumColor: "#ffa500",
-      activeStepIconColor: "#686868",
-      completedStepIconColor: "#ffa500",
-      completedProgressBarColor: "#ffa500",
-      completedCheckColor: "#60b4c2"
+      activeStepIconBorderColor: "#D0C21D",
+      activeLabelColor: "#202945",
+      activeStepNumColor: "#ffffff",
+      activeStepIconColor: "#202945",
+      completedStepIconColor: "#D0C21D",
+      completedProgressBarColor: "#D0C21D",
+      completedCheckColor: "#ffffff"
     };
 
     const buttonTextStyle = {
-      color: "#686868",
+      color: "#202945",
       fontWeight: "bold"
     };
 
@@ -106,11 +106,15 @@ class PaymentProcessContainer extends Component {
               resizeMode: "stretch"
             }}
           />
+          <Button
+            title={" Back To Home"}
+            onPress={() => this.props.navigation.navigate("home")}
+          />
         </View>
       );
     }
     return (
-      <View style={{ flex: 1, marginTop: 50, backgroundColor: "#60b4c2" }}>
+      <View style={{ flex: 1, marginTop: 50, backgroundColor: "#ffffff" }}>
         <ProgressSteps {...progressStepsStyle}>
           <ProgressStep
             label="Bar Code Scanner"
@@ -128,11 +132,11 @@ class PaymentProcessContainer extends Component {
               style={{
                 flex: 1,
                 justifyContent: "center",
-                backgroundColor: "#f99c05"
+                backgroundColor: "#202945"
               }}
             >
               {this.state.ScannedBarCode ? (
-                <Text style={{ fontSize: 20, margin: 8 }}>
+                <Text style={{ fontSize: 20, margin: 8, color: "#ffffff" }}>
                   {" "}
                   Membership ID :{this.state.memberShipId}
                 </Text>

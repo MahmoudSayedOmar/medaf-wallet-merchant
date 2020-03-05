@@ -9,11 +9,13 @@ export function PaymentAmount(props) {
         value={props.billNumber}
         onChangeText={props.onChangeBillNumber}
         placeholder={"Enter Bill Number"}
+        keyboardType="numeric"
       />
       <WalletTextInput
         value={props.amount}
         onChangeText={props.onChangeAmount}
         placeholder={"Enter amount in EGP"}
+        keyboardType="numeric"
       />
     </View>
   );
