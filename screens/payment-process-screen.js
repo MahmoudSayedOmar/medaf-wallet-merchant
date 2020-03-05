@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Button, Image } from "react-native";
+import { Text, View, StyleSheet, Image } from "react-native";
+import { Button, Icon } from "native-base";
 import { connect } from "react-redux";
 import { Dispatch, bindActionCreators } from "redux";
 import {
@@ -8,7 +9,10 @@ import {
   PaymentConfirmation
 } from "../components";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from "react-native-responsive-screen";
 import { tryPay } from "../state";
 
 class PaymentProcessContainer extends Component {
@@ -107,9 +111,27 @@ class PaymentProcessContainer extends Component {
             }}
           />
           <Button
-            title={" Back To Home"}
-            onPress={() => this.props.navigation.navigate("home")}
-          />
+            style={{
+              flexDirection: "column",
+              alignItems: "center",
+              width: wp("35%"),
+              height: hp("5"),
+              backgroundColor: "#D0C21D",
+              shadowColor: "#000000",
+              color: "#202945",
+
+              borderColor: "#202945",
+              borderWidth: 2,
+              paddingTop: 8,
+              paddingBottom: 5,
+              height: 40,
+              marginTop: 30,
+              alignSelf: "center"
+            }}
+            onPress={() => this.props.navigation.navigate("Home")}
+          >
+            <Text>Back To Home</Text>
+          </Button>
         </View>
       );
     }
