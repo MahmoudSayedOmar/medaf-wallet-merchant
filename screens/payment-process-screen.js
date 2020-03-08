@@ -128,7 +128,7 @@ class PaymentProcessContainer extends Component {
               marginTop: 30,
               alignSelf: "center"
             }}
-            onPress={() => this.props.navigation.navigate("Home")}
+            onPress={() => this.props.navigation.navigate("LoginIn")}
           >
             <Text>Back To Home</Text>
           </Button>
