@@ -19,8 +19,7 @@ export class AuthProxyService {
         }
       }
     }).catch(function(err) {
-      console.log(err.message);
-      debugger;
+      return err;
     });
   }
 }

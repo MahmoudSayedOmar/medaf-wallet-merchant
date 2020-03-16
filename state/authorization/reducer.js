@@ -29,16 +29,19 @@ export function authorizationReducer(
         userID: action.payload.UserId,
         brandID: action.payload.BrandId,
         groupID: action.payload.GroupId,
-        amount: 0
+        amount: 0,
+        loginFail: false
       };
     }
 
     case types.LOGIN_FAIL: {
+      debugger;
       return {
         ...state,
         isLoggedIn: false,
         errorMessage: action.payload,
-        loading: false
+        loading: false,
+        loginFail: true
       };
     }
 

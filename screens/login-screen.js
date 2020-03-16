@@ -1,19 +1,6 @@
 import React, { Component } from "react";
-import { ImageBackground, StyleSheet } from "react-native";
-import {
-  Container,
-  Content,
-  Footer,
-  FooterTab,
-  Text,
-  Button,
-  Item,
-  Input,
-  Form,
-  Label,
-  View,
-  Thumbnail
-} from "native-base";
+import { StyleSheet } from "react-native";
+import { View } from "native-base";
 
 import { connect } from "react-redux";
 
@@ -39,7 +26,9 @@ class loginContainer extends Component {
     return {
       loginError: state.authorization.errorMessage,
       isLoggedIn: state.authorization.isLoggedIn,
-      token: state.authorization.token
+      token: state.authorization.token,
+      loading: state.authorization.loading,
+      loginFail: state.authorization.loginFail
     };
   }
 
@@ -55,8 +44,10 @@ class loginContainer extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.isLoggedIn === true) {
-      this.props.navigation.navigate("Home");
+    if (nextProps.isLoggedIn) {
+      this.props.navigation.reset({
+        routes: [{ name: "Home" }]
+      });
     }
 
     this.setState({ isMounted: !this.state.isMounted });
@@ -75,6 +66,7 @@ class loginContainer extends Component {
             errorMessage={this.props.loginError}
             isLoggedIn={this.props.isLoggedIn}
             navigation={this.props.navigation}
+            loginFail={this.props.loginFail}
           />
         </KeyboardAwareScrollView>
       </View>

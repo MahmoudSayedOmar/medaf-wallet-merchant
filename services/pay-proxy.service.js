@@ -16,8 +16,7 @@ export class PayProxyService {
         }
       }
     }).catch(function(err) {
-      console.log(err.message);
-      debugger;
+      return err;
     });
   }
 }

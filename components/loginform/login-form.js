@@ -45,12 +45,24 @@ export class LoginForm extends Component {
   }
 
   render() {
-    const loadingSpinner = this.props.loading ? (
+    let loadingSpinner = this.props.loading ? (
       <Spinner color="#ef9c05" />
     ) : (
-      <Text style={{ alignSelf: "center", marginTop: 5 }} bold>
-        {this.props.errorMessage}
-      </Text>
+      <View style={styles.loginContainer}>
+        {this.props.loginFail ? (
+          <Text style={{ color: "#202945", alignSelf: "center" }}>
+            Check your Email or Password
+          </Text>
+        ) : null}
+        <Button
+          style={styles.button}
+          onPress={() => {
+            this.props.tryLogin(this.state);
+          }}
+        >
+          <Text style={{ color: "#202945" }}>Login</Text>
+        </Button>
+      </View>
     );
 
     return (
@@ -81,24 +93,7 @@ export class LoginForm extends Component {
               }}
             />
           </Item>
-          <View style={styles.forgetContainer}>
-            {/* <Text
-              style={styles.forgetText}
-              onPress={() => console.log("Forget password")}
-            >
-              ForgetPassword
-            </Text> */}
-          </View>
-          <View style={styles.loginContainer}>
-            <Button
-              style={styles.button}
-              onPress={() => {
-                this.props.tryLogin(this.state);
-              }}
-            >
-              <Text style={{ color: "#202945" }}>Login</Text>
-            </Button>
-          </View>
+
           {loadingSpinner}
         </Form>
       </View>

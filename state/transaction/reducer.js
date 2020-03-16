@@ -5,7 +5,8 @@ import * as types from "./actions";
 type Action =
   | actions.ON_PAY_Action
   | actions.PAY_SUCCESS_Action
-  | actions.PAY_FAIL_Action;
+  | actions.PAY_FAIL_Action
+  | actions.RE_INTIALIZE_TRANSACTION_STATE_Action;
 
 export function paymentReducer(
   state: PaymentState = PaymentInitialState,
@@ -18,7 +19,8 @@ export function paymentReducer(
         memberShipId: action.payload.memberShipId,
         amount: action.payload.amount,
         pinCode: action.payload.pinCode,
-        status: 0
+        status: 0,
+        loading: 1
       };
     }
 
@@ -26,17 +28,23 @@ export function paymentReducer(
       debugger;
       return {
         ...state,
-        status: 1
+        status: 1,
+        loading: 0
       };
     }
 
     case types.PAY_FAIL: {
       return {
         ...state,
-        status: 0
+        status: -1,
+        loading: 0,
+        errorMessage: action.payload
       };
     }
-
+    case types.RE_INTIALIZE_TRANSACTION_STATE: {
+      debugger;
+      return PaymentInitialState;
+    }
     default:
       return state;
   }

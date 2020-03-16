@@ -19,13 +19,18 @@ export function tryPay(data) {
       PIN: data.pinCode
     };
     let { token } = state.authorization;
-    debugger;
     let response = await payProxyService.pay(trans, token);
+    debugger;
+
     if (response.status === 200) {
       debugger;
-      dispatch(paySuccess());
+      if (response.data.code == 1) {
+        dispatch(paySuccess());
+      } else {
+        dispatch(payFail(response.data.Message));
+      }
     } else {
-      dispatch(payFail());
+      dispatch(payFail("wrong pin number"));
     }
   };
 }
@@ -38,7 +43,21 @@ export function paySuccess(): PAY_SUCCESS_Action {
   return { type: types.PAY_SUCCESS };
 }
 
-export function payFail(): PAY_FAIL_Action {
-  const errorMsg = "Invalid Credentials";
+export function payFail(errorMsg): PAY_FAIL_Action {
+  //const errorMsg = "Invalid Credentials";
+  debugger;
   return { type: types.PAY_FAIL, payload: errorMsg };
+}
+///////////////////////////////////////////////////////////////////
+
+export type RE_INTIALIZE_TRANSACTION_STATE_Action = { type: string };
+
+export function rePay() {
+  return async dispatch => {
+    dispatch(reIntializeTransactionState());
+  };
+}
+
+export function reIntializeTransactionState(): RE_INTIALIZE_TRANSACTION_STATE_Action {
+  return { type: types.RE_INTIALIZE_TRANSACTION_STATE };
 }

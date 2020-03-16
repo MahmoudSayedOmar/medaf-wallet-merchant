@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet, Image } from "react-native";
-import { Button, Icon } from "native-base";
+import { Button, Icon, Spinner } from "native-base";
 import { connect } from "react-redux";
 import { Dispatch, bindActionCreators } from "redux";
 import {
@@ -13,7 +13,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
-import { tryPay } from "../state";
+import { tryPay, rePay } from "../state";
 
 class PaymentProcessContainer extends Component {
   constructor(props) {
@@ -35,28 +35,18 @@ class PaymentProcessContainer extends Component {
     }
   };
 
-  onNextStep = () => {
-    //console.log("called next step");
-  };
-
-  onPaymentStepComplete = () => {
-    // alert("Payment step completed!");
-  };
-
-  onPrevStep = () => {
-    // console.log("called previous step");
-  };
-
   onSubmitSteps = () => {
     this.props.tryPay(this.state);
   };
   static mapStatetToProps(state: State) {
     return {
-      status: state.payment.status
+      status: state.payment.status,
+      loading: state.payment.loading,
+      errorMessage: state.payment.errorMessage
     };
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.status === true) {
+    if (nextProps.status) {
       this.setState({
         memberShipId: "",
         billNumber: "",
@@ -68,7 +58,7 @@ class PaymentProcessContainer extends Component {
     }
   }
   static mapDispatchToProps(dispatch: Dispatch) {
-    return bindActionCreators({ tryPay }, dispatch);
+    return bindActionCreators({ tryPay, rePay }, dispatch);
   }
 
   render() {
@@ -92,7 +82,8 @@ class PaymentProcessContainer extends Component {
       fontWeight: "bold",
       display: "none"
     };
-    if (this.props.status) {
+    debugger;
+    if (this.props.status === 1) {
       return (
         <View
           style={{
@@ -119,7 +110,6 @@ class PaymentProcessContainer extends Component {
               backgroundColor: "#D0C21D",
               shadowColor: "#000000",
               color: "#202945",
-
               borderColor: "#202945",
               borderWidth: 2,
               paddingTop: 8,
@@ -128,7 +118,50 @@ class PaymentProcessContainer extends Component {
               marginTop: 30,
               alignSelf: "center"
             }}
-            onPress={() => this.props.navigation.navigate("LoginIn")}
+            onPress={() => {
+              this.props.rePay();
+              this.props.navigation.navigate("Home");
+            }}
+          >
+            <Text>Back To Home</Text>
+          </Button>
+        </View>
+      );
+    }
+    if (this.props.status === -1) {
+      return (
+        <View
+          style={{
+            margin: 10,
+            flex: 1,
+            justifyContent: "center",
+            backgroundColor: "#FFFFFF"
+          }}
+        >
+          <Text style={{ alignSelf: "center", fontSize: 20 }}>
+            {this.props.errorMessage}
+          </Text>
+          <Button
+            style={{
+              flexDirection: "column",
+              alignItems: "center",
+              width: wp("35%"),
+              height: hp("5"),
+              backgroundColor: "#D0C21D",
+              shadowColor: "#000000",
+              color: "#202945",
+              borderColor: "#202945",
+              borderWidth: 2,
+              paddingTop: 8,
+              paddingBottom: 5,
+              height: 40,
+              marginTop: 30,
+              alignSelf: "center"
+            }}
+            onPress={() => {
+              this.props.rePay();
+              this.props.navigation.navigate("Home");
+            }}
           >
             <Text>Back To Home</Text>
           </Button>
@@ -140,15 +173,12 @@ class PaymentProcessContainer extends Component {
         <ProgressSteps {...progressStepsStyle}>
           <ProgressStep
             label="Bar Code Scanner"
-            onNext={this.onNextStep}
-            onPrevious={this.onPrevStep}
             scrollViewProps={this.defaultScrollViewProps}
             nextBtnTextStyle={
               this.state.ScannedBarCode
                 ? buttonTextStyle
                 : hiddenButtonTextStyle
             }
-            previousBtnTextStyle={buttonTextStyle}
           >
             <View
               style={{
@@ -158,10 +188,40 @@ class PaymentProcessContainer extends Component {
               }}
             >
               {this.state.ScannedBarCode ? (
-                <Text style={{ fontSize: 20, margin: 8, color: "#ffffff" }}>
-                  {" "}
-                  Membership ID :{this.state.memberShipId}
-                </Text>
+                <View>
+                  <Text style={{ fontSize: 20, margin: 8, color: "#ffffff" }}>
+                    {" "}
+                    Membership ID :{this.state.memberShipId}
+                  </Text>
+                  <Button
+                    style={{
+                      flexDirection: "column",
+                      alignItems: "center",
+                      width: wp("35%"),
+                      height: hp("5"),
+                      backgroundColor: "#D0C21D",
+                      shadowColor: "#000000",
+                      color: "#202945",
+                      borderColor: "#202945",
+                      borderWidth: 2,
+                      paddingTop: 8,
+                      paddingBottom: 5,
+                      height: 40,
+                      marginTop: 30,
+                      alignSelf: "center"
+                    }}
+                    onPress={() =>
+                      this.setState({
+                        memberShipId: "",
+                        billNumber: "",
+                        amount: "",
+                        ScannedBarCode: false
+                      })
+                    }
+                  >
+                    <Text style={{ color: "#202945" }}>Re-Scan</Text>
+                  </Button>
+                </View>
               ) : (
                 <BarcodeScanner
                   setBarCode={barCode =>
@@ -176,8 +236,14 @@ class PaymentProcessContainer extends Component {
           </ProgressStep>
           <ProgressStep
             label="Payment"
-            onNext={this.onPaymentStepComplete}
-            onPrevious={this.onPrevStep}
+            onPrevious={() =>
+              this.setState({
+                memberShipId: "",
+                billNumber: "",
+                amount: "",
+                ScannedBarCode: false
+              })
+            }
             scrollViewProps={this.defaultScrollViewProps}
             nextBtnTextStyle={buttonTextStyle}
             previousBtnTextStyle={buttonTextStyle}
@@ -200,10 +266,18 @@ class PaymentProcessContainer extends Component {
           <ProgressStep
             label="Confirm Pin"
             onSubmit={this.onSubmitSteps}
-            onPrevious={this.onPrevStep}
+            onPrevious={() =>
+              this.setState({
+                pinCode: ""
+              })
+            }
             scrollViewProps={this.defaultScrollViewProps}
-            nextBtnTextStyle={buttonTextStyle}
-            previousBtnTextStyle={buttonTextStyle}
+            nextBtnTextStyle={
+              this.props.loading ? hiddenButtonTextStyle : buttonTextStyle
+            }
+            previousBtnTextStyle={
+              this.props.loading ? hiddenButtonTextStyle : buttonTextStyle
+            }
           >
             <View
               style={{
@@ -212,12 +286,16 @@ class PaymentProcessContainer extends Component {
                 backgroundColor: "#FFFFFF"
               }}
             >
-              <PaymentConfirmation
-                pinCode={this.state.pinCode}
-                billNumber={this.state.billNumber}
-                amount={this.state.amount}
-                onChangePinCode={pinCode => this.setState({ pinCode })}
-              />
+              {this.props.loading ? (
+                <Spinner color="#D0C21D" />
+              ) : (
+                <PaymentConfirmation
+                  pinCode={this.state.pinCode}
+                  billNumber={this.state.billNumber}
+                  amount={this.state.amount}
+                  onChangePinCode={pinCode => this.setState({ pinCode })}
+                />
+              )}
             </View>
           </ProgressStep>
         </ProgressSteps>

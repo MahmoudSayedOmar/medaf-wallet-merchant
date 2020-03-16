@@ -11,7 +11,11 @@ export type LOGIN_FAIL_Action = { type: string, payload: string };
 export function tryLogin(user) {
   return async dispatch => {
     dispatch(onLogin(user));
+    debugger;
+
     let response = await authProxyService.login(user);
+    debugger;
+
     const result = await response.data;
     if (response.status === 200) {
       debugger;
