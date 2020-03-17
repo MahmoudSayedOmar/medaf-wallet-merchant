@@ -14,6 +14,7 @@ import {
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
 import { tryPay, rePay } from "../state";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 class PaymentProcessContainer extends Component {
   constructor(props) {
@@ -170,135 +171,149 @@ class PaymentProcessContainer extends Component {
     }
     return (
       <View style={{ flex: 1, marginTop: 50, backgroundColor: "#ffffff" }}>
-        <ProgressSteps {...progressStepsStyle}>
-          <ProgressStep
-            label="Bar Code Scanner"
-            scrollViewProps={this.defaultScrollViewProps}
-            nextBtnTextStyle={
-              this.state.ScannedBarCode
-                ? buttonTextStyle
-                : hiddenButtonTextStyle
-            }
-          >
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                backgroundColor: "#202945"
-              }}
+        <KeyboardAwareScrollView
+          extraScrollHeight={100}
+          enableOnAndroid={true}
+          contentContainerStyle={{
+            flex: 1,
+            flexDirection: "column",
+            justifyContent: "flex-end",
+            alignItems: "center"
+            // backgroundColor: "skyblue"
+          }}
+        >
+          <ProgressSteps {...progressStepsStyle}>
+            <ProgressStep
+              label="Bar Code Scanner"
+              scrollViewProps={this.defaultScrollViewProps}
+              nextBtnTextStyle={
+                this.state.ScannedBarCode
+                  ? buttonTextStyle
+                  : hiddenButtonTextStyle
+              }
             >
-              {this.state.ScannedBarCode ? (
-                <View>
-                  <Text style={{ fontSize: 20, margin: 8, color: "#ffffff" }}>
-                    {" "}
-                    Membership ID :{this.state.memberShipId}
-                  </Text>
-                  <Button
-                    style={{
-                      flexDirection: "column",
-                      alignItems: "center",
-                      width: wp("35%"),
-                      height: hp("5"),
-                      backgroundColor: "#D0C21D",
-                      shadowColor: "#000000",
-                      color: "#202945",
-                      borderColor: "#202945",
-                      borderWidth: 2,
-                      paddingTop: 8,
-                      paddingBottom: 5,
-                      height: 40,
-                      marginTop: 30,
-                      alignSelf: "center"
-                    }}
-                    onPress={() =>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  backgroundColor: "#202945"
+                }}
+              >
+                {this.state.ScannedBarCode ? (
+                  <View>
+                    <Text style={{ fontSize: 20, margin: 8, color: "#ffffff" }}>
+                      {" "}
+                      Membership ID :{this.state.memberShipId}
+                    </Text>
+                    <Button
+                      style={{
+                        flexDirection: "column",
+                        alignItems: "center",
+                        width: wp("35%"),
+                        height: hp("5"),
+                        backgroundColor: "#D0C21D",
+                        shadowColor: "#000000",
+                        color: "#202945",
+                        borderColor: "#202945",
+                        borderWidth: 2,
+                        paddingTop: 8,
+                        paddingBottom: 5,
+                        height: 40,
+                        marginTop: 30,
+                        alignSelf: "center"
+                      }}
+                      onPress={() =>
+                        this.setState({
+                          memberShipId: "",
+                          billNumber: "",
+                          amount: "",
+                          ScannedBarCode: false
+                        })
+                      }
+                    >
+                      <Text style={{ color: "#202945" }}>Re-Scan</Text>
+                    </Button>
+                  </View>
+                ) : (
+                  <BarcodeScanner
+                    setBarCode={barCode =>
                       this.setState({
-                        memberShipId: "",
-                        billNumber: "",
-                        amount: "",
-                        ScannedBarCode: false
+                        memberShipId: barCode,
+                        ScannedBarCode: true
                       })
                     }
-                  >
-                    <Text style={{ color: "#202945" }}>Re-Scan</Text>
-                  </Button>
-                </View>
-              ) : (
-                <BarcodeScanner
-                  setBarCode={barCode =>
-                    this.setState({
-                      memberShipId: barCode,
-                      ScannedBarCode: true
-                    })
-                  }
-                />
-              )}
-            </View>
-          </ProgressStep>
-          <ProgressStep
-            label="Payment"
-            onPrevious={() =>
-              this.setState({
-                memberShipId: "",
-                billNumber: "",
-                amount: "",
-                ScannedBarCode: false
-              })
-            }
-            scrollViewProps={this.defaultScrollViewProps}
-            nextBtnTextStyle={buttonTextStyle}
-            previousBtnTextStyle={buttonTextStyle}
-          >
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                backgroundColor: "#FFFFFF"
-              }}
+                  />
+                )}
+              </View>
+            </ProgressStep>
+            <ProgressStep
+              label="Payment"
+              onPrevious={() =>
+                this.setState({
+                  memberShipId: "",
+                  billNumber: "",
+                  amount: "",
+                  ScannedBarCode: false
+                })
+              }
+              scrollViewProps={this.defaultScrollViewProps}
+              nextBtnTextStyle={buttonTextStyle}
+              previousBtnTextStyle={buttonTextStyle}
             >
-              <PaymentAmount
-                billNumber={this.state.billNumber}
-                amount={this.state.amount}
-                onChangeBillNumber={billNumber => this.setState({ billNumber })}
-                onChangeAmount={amount => this.setState({ amount })}
-              />
-            </View>
-          </ProgressStep>
-          <ProgressStep
-            label="Confirm Pin"
-            onSubmit={this.onSubmitSteps}
-            onPrevious={() =>
-              this.setState({
-                pinCode: ""
-              })
-            }
-            scrollViewProps={this.defaultScrollViewProps}
-            nextBtnTextStyle={
-              this.props.loading ? hiddenButtonTextStyle : buttonTextStyle
-            }
-            previousBtnTextStyle={
-              this.props.loading ? hiddenButtonTextStyle : buttonTextStyle
-            }
-          >
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                backgroundColor: "#FFFFFF"
-              }}
-            >
-              {this.props.loading ? (
-                <Spinner color="#D0C21D" />
-              ) : (
-                <PaymentConfirmation
-                  pinCode={this.state.pinCode}
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  backgroundColor: "#FFFFFF"
+                }}
+              >
+                <PaymentAmount
                   billNumber={this.state.billNumber}
                   amount={this.state.amount}
-                  onChangePinCode={pinCode => this.setState({ pinCode })}
+                  onChangeBillNumber={billNumber =>
+                    this.setState({ billNumber })
+                  }
+                  onChangeAmount={amount => this.setState({ amount })}
                 />
-              )}
-            </View>
-          </ProgressStep>
-        </ProgressSteps>
+              </View>
+            </ProgressStep>
+            <ProgressStep
+              label="Confirm Pin"
+              onSubmit={this.onSubmitSteps}
+              onPrevious={() =>
+                this.setState({
+                  pinCode: ""
+                })
+              }
+              scrollViewProps={this.defaultScrollViewProps}
+              nextBtnTextStyle={
+                this.props.loading ? hiddenButtonTextStyle : buttonTextStyle
+              }
+              previousBtnTextStyle={
+                this.props.loading ? hiddenButtonTextStyle : buttonTextStyle
+              }
+            >
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  backgroundColor: "#FFFFFF"
+                }}
+              >
+                {this.props.loading ? (
+                  <Spinner color="#D0C21D" />
+                ) : (
+                  <PaymentConfirmation
+                    pinCode={this.state.pinCode}
+                    billNumber={this.state.billNumber}
+                    amount={this.state.amount}
+                    onChangePinCode={pinCode => this.setState({ pinCode })}
+                  />
+                )}
+              </View>
+            </ProgressStep>
+          </ProgressSteps>
+        </KeyboardAwareScrollView>
       </View>
     );
   }
