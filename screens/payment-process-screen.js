@@ -21,6 +21,7 @@ class PaymentProcessContainer extends Component {
     super(props);
     this.state = {
       memberShipId: "",
+      connectionId: "",
       billNumber: "",
       amount: "",
       pinCode: "",
@@ -50,6 +51,7 @@ class PaymentProcessContainer extends Component {
     if (nextProps.status) {
       this.setState({
         memberShipId: "",
+        connectionId: "",
         billNumber: "",
         amount: "",
         pinCode: "",
@@ -179,12 +181,11 @@ class PaymentProcessContainer extends Component {
             flexDirection: "column",
             justifyContent: "flex-end",
             alignItems: "center"
-            // backgroundColor: "skyblue"
           }}
         >
           <ProgressSteps {...progressStepsStyle}>
             <ProgressStep
-              label="Bar Code Scanner"
+              label="QR-Code Scanner"
               scrollViewProps={this.defaultScrollViewProps}
               nextBtnTextStyle={
                 this.state.ScannedBarCode
@@ -225,6 +226,7 @@ class PaymentProcessContainer extends Component {
                       onPress={() =>
                         this.setState({
                           memberShipId: "",
+                          connectionId: "",
                           billNumber: "",
                           amount: "",
                           ScannedBarCode: false
@@ -236,12 +238,14 @@ class PaymentProcessContainer extends Component {
                   </View>
                 ) : (
                   <BarcodeScanner
-                    setBarCode={barCode =>
+                    setBarCode={barCode => {
+                      var res = barCode.split("@");
                       this.setState({
-                        memberShipId: barCode,
+                        connectionId: res[0],
+                        memberShipId: res[1],
                         ScannedBarCode: true
-                      })
-                    }
+                      });
+                    }}
                   />
                 )}
               </View>
@@ -251,6 +255,7 @@ class PaymentProcessContainer extends Component {
               onPrevious={() =>
                 this.setState({
                   memberShipId: "",
+                  connectionId: "",
                   billNumber: "",
                   amount: "",
                   ScannedBarCode: false

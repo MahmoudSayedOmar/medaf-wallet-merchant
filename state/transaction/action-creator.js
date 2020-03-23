@@ -1,5 +1,6 @@
 import * as types from "./actions";
 import { payProxyService } from "../../services";
+import { connect } from "react-redux";
 
 export type ON_PAY_Action = { type: string, payload: any };
 export type PAY_SUCCESS_Action = {
@@ -19,7 +20,7 @@ export function tryPay(data) {
       PIN: data.pinCode
     };
     let { token } = state.authorization;
-    let response = await payProxyService.pay(trans, token);
+    let response = await payProxyService.pay(trans, token, data.connectionId);
     debugger;
 
     if (response.status === 200) {

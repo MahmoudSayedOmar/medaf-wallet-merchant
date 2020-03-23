@@ -4580,6 +4580,11 @@ react-native-progress-steps@^1.2.8:
     lodash "^4.17.11"
     prop-types "^15.6.2"
 
+react-native-responsive-screen@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-responsive-screen/-/react-native-responsive-screen-1.4.0.tgz#c7d90c173edba28c023c665975c0de85fd60eaba"
+  integrity sha512-qhT4+ATQbqV1GYaCzit560HnBNoZD7WahiZKAZebJlgBl6D8uY+kYuGwBl3rIamP5CsMfwyUJnoI5Z79JU2yyA==
+
 react-native-safe-area-context@^0.7.3:
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-0.7.3.tgz#ad6bd4abbabe195332c53810e4ce5851eb21aa2a"
