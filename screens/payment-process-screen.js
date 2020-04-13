@@ -6,8 +6,10 @@ import { Dispatch, bindActionCreators } from "redux";
 import {
   BarcodeScanner,
   PaymentAmount,
-  PaymentConfirmation
+  PaymentConfirmation,
+  EveryButton
 } from "../components";
+
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import {
   widthPercentageToDP as wp,
@@ -76,10 +78,25 @@ class PaymentProcessContainer extends Component {
     };
 
     const buttonTextStyle = {
-      color: "#202945",
-      fontWeight: "bold"
+      position: "absolute",
+      bottom: 0,
+      left: 0,
+      color: "#D0C21D",
+      marginLeft: -40,
+      width: 200,
+      color: "#D0C21D"
+      // right: 0,
+      // color: "#202945",
+      // fontWeight: "bold"
     };
-
+    const buttonTextStylePrev = {
+      position: "absolute",
+      bottom: 0,
+      left: 0,
+      marginLeft: "5%",
+      width: 200,
+      color: "#D0C21D"
+    };
     const hiddenButtonTextStyle = {
       color: "#686868",
       fontWeight: "bold",
@@ -90,7 +107,6 @@ class PaymentProcessContainer extends Component {
       return (
         <View
           style={{
-            margin: 10,
             flex: 1,
             justifyContent: "center",
             backgroundColor: "#FFFFFF"
@@ -135,7 +151,6 @@ class PaymentProcessContainer extends Component {
       return (
         <View
           style={{
-            margin: 10,
             flex: 1,
             justifyContent: "center",
             backgroundColor: "#FFFFFF"
@@ -172,7 +187,7 @@ class PaymentProcessContainer extends Component {
       );
     }
     return (
-      <View style={{ flex: 1, marginTop: 50, backgroundColor: "#ffffff" }}>
+      <View style={{ flex: 1, backgroundColor: "#ffffff" }}>
         <KeyboardAwareScrollView
           extraScrollHeight={100}
           enableOnAndroid={true}
@@ -197,32 +212,26 @@ class PaymentProcessContainer extends Component {
                 style={{
                   flex: 1,
                   justifyContent: "center",
-                  backgroundColor: "#202945"
+                  backgroundColor: "#202945",
+                  borderWidth: 2,
+                  borderColor: "#D0C21D",
+                  borderRadius: 5
                 }}
               >
                 {this.state.ScannedBarCode ? (
                   <View>
-                    <Text style={{ fontSize: 20, margin: 8, color: "#ffffff" }}>
-                      {" "}
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        margin: 8,
+                        color: "#ffffff",
+                        textAlign: "center"
+                      }}
+                    >
                       Membership ID :{this.state.memberShipId}
                     </Text>
-                    <Button
-                      style={{
-                        flexDirection: "column",
-                        alignItems: "center",
-                        width: wp("35%"),
-                        height: hp("5"),
-                        backgroundColor: "#D0C21D",
-                        shadowColor: "#000000",
-                        color: "#202945",
-                        borderColor: "#202945",
-                        borderWidth: 2,
-                        paddingTop: 8,
-                        paddingBottom: 5,
-                        height: 40,
-                        marginTop: 30,
-                        alignSelf: "center"
-                      }}
+                    <EveryButton
+                      text="Re-Scan"
                       onPress={() =>
                         this.setState({
                           memberShipId: "",
@@ -232,9 +241,7 @@ class PaymentProcessContainer extends Component {
                           ScannedBarCode: false
                         })
                       }
-                    >
-                      <Text style={{ color: "#202945" }}>Re-Scan</Text>
-                    </Button>
+                    />
                   </View>
                 ) : (
                   <BarcodeScanner
@@ -263,7 +270,7 @@ class PaymentProcessContainer extends Component {
               }
               scrollViewProps={this.defaultScrollViewProps}
               nextBtnTextStyle={buttonTextStyle}
-              previousBtnTextStyle={buttonTextStyle}
+              previousBtnTextStyle={buttonTextStylePrev}
             >
               <View
                 style={{
@@ -295,7 +302,7 @@ class PaymentProcessContainer extends Component {
                 this.props.loading ? hiddenButtonTextStyle : buttonTextStyle
               }
               previousBtnTextStyle={
-                this.props.loading ? hiddenButtonTextStyle : buttonTextStyle
+                this.props.loading ? hiddenButtonTextStyle : buttonTextStylePrev
               }
             >
               <View

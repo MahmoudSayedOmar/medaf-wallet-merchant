@@ -2,6 +2,7 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { HomeScreen, PaymentProcessScreen, LoginScreen } from "./screens";
+import { ApplicationScreen } from "./screens/application-screen.js";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import { reducer } from "./state";
@@ -39,6 +40,7 @@ class App extends React.Component {
 
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Pay" component={PaymentProcessScreen} />
+            <Stack.Screen name="Application" component={ApplicationScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

@@ -46,7 +46,7 @@ class loginContainer extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.isLoggedIn) {
       this.props.navigation.reset({
-        routes: [{ name: "Home" }]
+        routes: [{ name: "Application" }]
       });
     }
 

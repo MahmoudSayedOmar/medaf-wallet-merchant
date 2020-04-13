@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import { connect } from "react-redux";
-import { HomeButton } from "../components";
+import { EveryButton } from "../components";
 import { Dispatch, bindActionCreators } from "redux";
-
+var logo = require("../assets/download.jpg");
 //import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 class HomeContainer extends Component {
   constructor() {
@@ -22,11 +22,15 @@ class HomeContainer extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <View style={styles.centerLogo}>
+          <Image source={logo} style={{ width: 150 }} />
+        </View>
+
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
-          <HomeButton
+          <EveryButton
             iconName="search"
-            text="Click to scan bar code"
-            onPress={() => this.props.navigation.navigate("Pay")}
+            text="Click to scan Bar-code"
+            onPress={() => this.props.navigation.navigate("Pay Screen")}
           />
         </View>
       </View>
@@ -41,7 +45,13 @@ export const HomeScreen = connect(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
+    paddingTop: "3%",
+    backgroundColor: "#FFFFFF"
+  },
+  centerLogo: {
     justifyContent: "center",
-    backgroundColor: "#ffffff"
+    alignItems: "center",
+    marginBottom: "5%"
   }
 });

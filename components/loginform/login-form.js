@@ -10,7 +10,8 @@ import {
   TouchableOpacity,
   StyleSheet,
   Platform,
-  Image
+  Image,
+  TextInput
 } from "react-native";
 import {
   Form,
@@ -50,7 +51,7 @@ export class LoginForm extends Component {
     ) : (
       <View style={styles.loginContainer}>
         {this.props.loginFail ? (
-          <Text style={{ color: "#202945", alignSelf: "center" }}>
+          <Text style={{ color: "red", alignSelf: "center" }}>
             Check your Email or Password
           </Text>
         ) : null}
@@ -71,28 +72,25 @@ export class LoginForm extends Component {
           <Image source={logo} style={{ width: 150 }} />
         </View>
         <Form>
-          <Item floatingLabel>
-            <Label>
-              <Text style={{ color: "#202945" }}>Email</Text>
-            </Label>
-            <Input
-              onChangeText={txt => {
-                this.setState({ userName: txt });
-              }}
-            />
-          </Item>
-          <Item floatingLabel>
-            <Label>
-              {" "}
-              <Text style={{ color: "#202945" }}>Password</Text>
-            </Label>
-            <Input
-              secureTextEntry={true}
-              onChangeText={txt => {
-                this.setState({ password: txt });
-              }}
-            />
-          </Item>
+          <TextInput
+            value={this.state.userName}
+            onChangeText={txt => {
+              this.setState({ userName: txt });
+            }}
+            placeholder={"Email"}
+            placeholderTextColor="#D0C21D"
+            style={styles.input}
+          />
+          <TextInput
+            value={this.state.password}
+            onChangeText={txt => {
+              this.setState({ password: txt });
+            }}
+            secureTextEntry={true}
+            placeholder={"Password"}
+            placeholderTextColor="#D0C21D"
+            style={styles.input}
+          />
 
           {loadingSpinner}
         </Form>
@@ -103,10 +101,8 @@ export class LoginForm extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
-    justifyContent: "center",
-    backgroundColor: "#FFFFFF",
-    paddingTop: 50
+    paddingTop: "13%",
+    backgroundColor: "#FFFFFF"
   },
 
   loginContainer: {
@@ -126,37 +122,19 @@ const styles = StyleSheet.create({
   button: {
     flexDirection: "column",
     alignItems: "center",
-    width: wp("35%"),
+    width: "auto",
     height: hp("5"),
     backgroundColor: "#D0C21D",
     shadowColor: "#000000",
     color: "#202945",
-
     borderColor: "#202945",
-    borderWidth: 2,
-    paddingBottom: 5,
-    height: 40,
-    marginTop: 30,
-    alignSelf: "center"
+    borderWidth: 1,
+    marginTop: 10,
+    alignSelf: "center",
+    padding: 10,
+    paddingTop: 5
   },
-  // button: {
-  //   flex: 1,
-  //   borderRadius: 25,
-  //   paddingTop: 5,
-  //   borderRadius: 25,
-  //   shadowRadius: 15,
-  //   ...Platform.select({
-  //     ios: {
-  //       shadowColor: "#000",
-  //       shadowOffset: { width: 0, height: 2 },
-  //       // shadowOffset: { width: 1, height: 13 },
-  //       shadowOpacity: 0.2
-  //     },
-  //     android: {
-  //       elevation: 6
-  //     }
-  //   })
-  // },
+
   forgetContainer: {
     flex: 1,
     // width: DEVICE_WIDTH,
@@ -173,5 +151,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingTop: 20,
     paddingBottom: 20
+  },
+  input: {
+    textAlign: "left",
+    paddingLeft: 8,
+    height: 50,
+    borderWidth: 2,
+    borderColor: "#D0C21D",
+    borderRadius: 5,
+    color: "#D0C21D",
+
+    margin: 10
   }
 });

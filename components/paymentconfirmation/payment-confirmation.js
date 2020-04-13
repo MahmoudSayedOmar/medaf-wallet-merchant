@@ -6,20 +6,22 @@ import PaymentConfirmationStyles from "./payment-confirmation-styles";
 export function PaymentConfirmation(props) {
   return (
     <View style={PaymentConfirmationStyles.container}>
-      <Text style={{ margin: 12, color: "#ffffff" }}>
-        <Text style={{ fontSize: 20, color: "#ffffff" }}>
-          You will pay for Bill Number
+      <View style={{ width: "80%" }}>
+        <Text style={{ margin: 12, color: "#ffffff" }}>
+          <Text style={{ fontSize: 20, color: "#ffffff" }}>
+            You will pay for Bill Number
+          </Text>
+          <Text style={{ fontSize: 20, fontWeight: "bold", color: "#D0C21D" }}>
+            {" "}
+            {props.billNumber}{" "}
+          </Text>
+          <Text style={{ fontSize: 20, color: "#ffffff" }}>with amount </Text>
+          <Text style={{ fontSize: 20, fontWeight: "bold", color: "#D0C21D" }}>
+            {" "}
+            {props.amount} EGP
+          </Text>
         </Text>
-        <Text style={{ fontSize: 20, fontWeight: "bold", color: "#D0C21D" }}>
-          {" "}
-          {props.billNumber}{" "}
-        </Text>
-        <Text style={{ fontSize: 20, color: "#ffffff" }}>with amount </Text>
-        <Text style={{ fontSize: 20, fontWeight: "bold", color: "#D0C21D" }}>
-          {" "}
-          {props.amount} EGP
-        </Text>
-      </Text>
+      </View>
       <WalletTextInput
         value={props.pinCode}
         onChangeText={props.onChangePinCode}

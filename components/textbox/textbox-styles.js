@@ -1,20 +1,14 @@
 export default WalletTextInputStyles = {
   input: {
-    textAlign: "center",
+    textAlign: "left",
+    paddingLeft: 8,
     height: 50,
     borderWidth: 2,
-    borderColor: "black",
-    borderRadius: 20,
-    backgroundColor: "#FFFFFF",
-    margin: 10
-  },
-  input2: {
-    textAlign: "center",
-    height: 50,
-    borderWidth: 2,
-    borderColor: "black",
+    borderColor: "#D0C21D",
     borderRadius: 5,
-    backgroundColor: "#D0C21D",
+    color: "#D0C21D",
+    backgroundColor: "#ffffff",
+
     margin: 10
   }
 };

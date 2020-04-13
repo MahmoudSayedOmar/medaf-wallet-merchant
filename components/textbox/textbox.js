@@ -5,11 +5,11 @@ import WalletTextInputStyles from "./textbox-styles";
 export function WalletTextInput(props) {
   return (
     <TextInput
-      placeholderTextColor="#202945"
+      placeholderTextColor="#D0C21D"
       value={props.value}
       onChangeText={props.onChangeText}
       placeholder={props.placeholder}
-      style={WalletTextInputStyles.input2}
+      style={WalletTextInputStyles.input}
       keyboardType={props.keyboardType}
     />
   );
