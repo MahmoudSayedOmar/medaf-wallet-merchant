@@ -7,13 +7,11 @@ import {
   BarcodeScanner,
   PaymentAmount,
   PaymentConfirmation,
-  EveryButton
 } from "../components";
-
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
+  heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { tryPay, rePay } from "../state";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -27,7 +25,7 @@ class PaymentProcessContainer extends Component {
       billNumber: "",
       amount: "",
       pinCode: "",
-      ScannedBarCode: false
+      ScannedBarCode: false,
     };
   }
 
@@ -35,8 +33,8 @@ class PaymentProcessContainer extends Component {
     keyboardShouldPersistTaps: "handled",
     contentContainerStyle: {
       flex: 1,
-      justifyContent: "center"
-    }
+      justifyContent: "center",
+    },
   };
 
   onSubmitSteps = () => {
@@ -46,7 +44,7 @@ class PaymentProcessContainer extends Component {
     return {
       status: state.payment.status,
       loading: state.payment.loading,
-      errorMessage: state.payment.errorMessage
+      errorMessage: state.payment.errorMessage,
     };
   }
   componentWillReceiveProps(nextProps) {
@@ -57,7 +55,7 @@ class PaymentProcessContainer extends Component {
         billNumber: "",
         amount: "",
         pinCode: "",
-        ScannedBarCode: false
+        ScannedBarCode: false,
       });
       //  this.props.navigation.navigate("home");
     }
@@ -74,42 +72,28 @@ class PaymentProcessContainer extends Component {
       activeStepIconColor: "#202945",
       completedStepIconColor: "#D0C21D",
       completedProgressBarColor: "#D0C21D",
-      completedCheckColor: "#ffffff"
+      completedCheckColor: "#ffffff",
     };
 
     const buttonTextStyle = {
-      position: "absolute",
-      bottom: 0,
-      left: 0,
-      color: "#D0C21D",
-      marginLeft: -40,
-      width: 200,
-      color: "#D0C21D"
-      // right: 0,
-      // color: "#202945",
-      // fontWeight: "bold"
+      color: "#202945",
+      fontWeight: "bold",
     };
-    const buttonTextStylePrev = {
-      position: "absolute",
-      bottom: 0,
-      left: 0,
-      marginLeft: "5%",
-      width: 200,
-      color: "#D0C21D"
-    };
+
     const hiddenButtonTextStyle = {
       color: "#686868",
       fontWeight: "bold",
-      display: "none"
+      display: "none",
     };
     debugger;
     if (this.props.status === 1) {
       return (
         <View
           style={{
+            margin: 10,
             flex: 1,
             justifyContent: "center",
-            backgroundColor: "#FFFFFF"
+            backgroundColor: "#FFFFFF",
           }}
         >
           <Image
@@ -117,7 +101,7 @@ class PaymentProcessContainer extends Component {
             style={{
               height: 200,
               width: "100%",
-              resizeMode: "stretch"
+              resizeMode: "stretch",
             }}
           />
           <Button
@@ -135,7 +119,7 @@ class PaymentProcessContainer extends Component {
               paddingBottom: 5,
               height: 40,
               marginTop: 30,
-              alignSelf: "center"
+              alignSelf: "center",
             }}
             onPress={() => {
               this.props.rePay();
@@ -151,9 +135,10 @@ class PaymentProcessContainer extends Component {
       return (
         <View
           style={{
+            margin: 10,
             flex: 1,
             justifyContent: "center",
-            backgroundColor: "#FFFFFF"
+            backgroundColor: "#FFFFFF",
           }}
         >
           <Text style={{ alignSelf: "center", fontSize: 20 }}>
@@ -174,7 +159,7 @@ class PaymentProcessContainer extends Component {
               paddingBottom: 5,
               height: 40,
               marginTop: 30,
-              alignSelf: "center"
+              alignSelf: "center",
             }}
             onPress={() => {
               this.props.rePay();
@@ -187,7 +172,7 @@ class PaymentProcessContainer extends Component {
       );
     }
     return (
-      <View style={{ flex: 1, backgroundColor: "#ffffff" }}>
+      <View style={{ flex: 1, marginTop: 50, backgroundColor: "#ffffff" }}>
         <KeyboardAwareScrollView
           extraScrollHeight={100}
           enableOnAndroid={true}
@@ -195,7 +180,7 @@ class PaymentProcessContainer extends Component {
             flex: 1,
             flexDirection: "column",
             justifyContent: "flex-end",
-            alignItems: "center"
+            alignItems: "center",
           }}
         >
           <ProgressSteps {...progressStepsStyle}>
@@ -213,44 +198,52 @@ class PaymentProcessContainer extends Component {
                   flex: 1,
                   justifyContent: "center",
                   backgroundColor: "#202945",
-                  borderWidth: 2,
-                  borderColor: "#D0C21D",
-                  borderRadius: 5
                 }}
               >
                 {this.state.ScannedBarCode ? (
                   <View>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        margin: 8,
-                        color: "#ffffff",
-                        textAlign: "center"
-                      }}
-                    >
+                    <Text style={{ fontSize: 20, margin: 8, color: "#ffffff" }}>
+                      {" "}
                       Membership ID :{this.state.memberShipId}
                     </Text>
-                    <EveryButton
-                      text="Re-Scan"
+                    <Button
+                      style={{
+                        flexDirection: "column",
+                        alignItems: "center",
+                        width: wp("35%"),
+                        height: hp("5"),
+                        backgroundColor: "#D0C21D",
+                        shadowColor: "#000000",
+                        color: "#202945",
+                        borderColor: "#202945",
+                        borderWidth: 2,
+                        paddingTop: 8,
+                        paddingBottom: 5,
+                        height: 40,
+                        marginTop: 30,
+                        alignSelf: "center",
+                      }}
                       onPress={() =>
                         this.setState({
                           memberShipId: "",
                           connectionId: "",
                           billNumber: "",
                           amount: "",
-                          ScannedBarCode: false
+                          ScannedBarCode: false,
                         })
                       }
-                    />
+                    >
+                      <Text style={{ color: "#202945" }}>Re-Scan</Text>
+                    </Button>
                   </View>
                 ) : (
                   <BarcodeScanner
-                    setBarCode={barCode => {
+                    setBarCode={(barCode) => {
                       var res = barCode.split("@");
                       this.setState({
                         connectionId: res[0],
                         memberShipId: res[1],
-                        ScannedBarCode: true
+                        ScannedBarCode: true,
                       });
                     }}
                   />
@@ -265,27 +258,27 @@ class PaymentProcessContainer extends Component {
                   connectionId: "",
                   billNumber: "",
                   amount: "",
-                  ScannedBarCode: false
+                  ScannedBarCode: false,
                 })
               }
               scrollViewProps={this.defaultScrollViewProps}
               nextBtnTextStyle={buttonTextStyle}
-              previousBtnTextStyle={buttonTextStylePrev}
+              previousBtnTextStyle={buttonTextStyle}
             >
               <View
                 style={{
                   flex: 1,
                   justifyContent: "center",
-                  backgroundColor: "#FFFFFF"
+                  backgroundColor: "#FFFFFF",
                 }}
               >
                 <PaymentAmount
                   billNumber={this.state.billNumber}
                   amount={this.state.amount}
-                  onChangeBillNumber={billNumber =>
+                  onChangeBillNumber={(billNumber) =>
                     this.setState({ billNumber })
                   }
-                  onChangeAmount={amount => this.setState({ amount })}
+                  onChangeAmount={(amount) => this.setState({ amount })}
                 />
               </View>
             </ProgressStep>
@@ -294,7 +287,7 @@ class PaymentProcessContainer extends Component {
               onSubmit={this.onSubmitSteps}
               onPrevious={() =>
                 this.setState({
-                  pinCode: ""
+                  pinCode: "",
                 })
               }
               scrollViewProps={this.defaultScrollViewProps}
@@ -302,14 +295,14 @@ class PaymentProcessContainer extends Component {
                 this.props.loading ? hiddenButtonTextStyle : buttonTextStyle
               }
               previousBtnTextStyle={
-                this.props.loading ? hiddenButtonTextStyle : buttonTextStylePrev
+                this.props.loading ? hiddenButtonTextStyle : buttonTextStyle
               }
             >
               <View
                 style={{
                   flex: 1,
                   justifyContent: "center",
-                  backgroundColor: "#FFFFFF"
+                  backgroundColor: "#FFFFFF",
                 }}
               >
                 {this.props.loading ? (
@@ -319,7 +312,7 @@ class PaymentProcessContainer extends Component {
                     pinCode={this.state.pinCode}
                     billNumber={this.state.billNumber}
                     amount={this.state.amount}
-                    onChangePinCode={pinCode => this.setState({ pinCode })}
+                    onChangePinCode={(pinCode) => this.setState({ pinCode })}
                   />
                 )}
               </View>
