@@ -5,7 +5,7 @@ import WalletTextInputStyles from "./textbox-styles";
 export function WalletTextInput(props) {
   return (
     <TextInput
-      placeholderTextColor="#D0C21D"
+      placeholderTextColor="#202945"
       value={props.value}
       onChangeText={props.onChangeText}
       placeholder={props.placeholder}
