@@ -11,15 +11,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#D0C21D",
     shadowColor: "#000000",
     color: "#202945",
-
     borderColor: "#202945",
     borderWidth: 1,
-
     height: 35,
     marginTop: 10,
-
-    alignSelf: "center"
-  }
+    alignSelf: "center",
+  },
 });
 
 export { styles };

@@ -15,7 +15,7 @@ export function authorizationReducer(
     case types.ON_LOGIN: {
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     }
 
@@ -26,11 +26,11 @@ export function authorizationReducer(
         token: action.payload.Token,
         isLoggedIn: true,
         loading: false,
-        userID: action.payload.UserId,
+        userID: action.payload.LoginId,
         brandID: action.payload.BrandId,
         groupID: action.payload.GroupId,
         amount: 0,
-        loginFail: false
+        loginFail: false,
       };
     }
 
@@ -41,7 +41,7 @@ export function authorizationReducer(
         isLoggedIn: false,
         errorMessage: action.payload,
         loading: false,
-        loginFail: true
+        loginFail: true,
       };
     }
 

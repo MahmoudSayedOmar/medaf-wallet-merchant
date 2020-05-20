@@ -9,11 +9,11 @@ export function PaymentConfirmation(props) {
       <View style={{ width: "80%" }}>
         <Text style={{ margin: 12, color: "#ffffff" }}>
           <Text style={{ fontSize: 20, color: "#ffffff" }}>
-            You will pay for Bill Number
+            You will pay for Ref Number
           </Text>
           <Text style={{ fontSize: 20, fontWeight: "bold", color: "#D0C21D" }}>
             {" "}
-            {props.billNumber}{" "}
+            {props.refNumber}{" "}
           </Text>
           <Text style={{ fontSize: 20, color: "#ffffff" }}>with amount </Text>
           <Text style={{ fontSize: 20, fontWeight: "bold", color: "#D0C21D" }}>
@@ -28,6 +28,9 @@ export function PaymentConfirmation(props) {
         placeholder={"Enter Your Pin Code And Confirm"}
         keyboardType="numeric"
       />
+      <Text style={{ margin: 12, fontSize: 20, color: "#ffffff" }}>
+        {props.errorMessage}
+      </Text>
     </View>
   );
 }

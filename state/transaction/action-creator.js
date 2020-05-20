@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 export type ON_PAY_Action = { type: string, payload: any };
 export type PAY_SUCCESS_Action = {
   type: string,
-  payload: any
+  payload: any,
 };
 export type PAY_FAIL_Action = { type: string, payload: string };
 
@@ -17,7 +17,8 @@ export function tryPay(data) {
       CustomerCardNo: data.memberShipId,
       DealerId: state.authorization.userID,
       Amount: data.amount,
-      PIN: data.pinCode
+      RefNumber: data.refNumber,
+      PIN: data.pinCode,
     };
     let { token } = state.authorization;
     let response = await payProxyService.pay(trans, token, data.connectionId);
@@ -54,7 +55,7 @@ export function payFail(errorMsg): PAY_FAIL_Action {
 export type RE_INTIALIZE_TRANSACTION_STATE_Action = { type: string };
 
 export function rePay() {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch(reIntializeTransactionState());
   };
 }
