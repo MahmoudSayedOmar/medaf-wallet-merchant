@@ -103,31 +103,6 @@ class PaymentProcessContainer extends Component {
         </View>
       );
     }
-    // if (this.props.status === -1) {
-    //   return (
-    //     <View
-    //       style={{
-    //         margin: 10,
-    //         flex: 1,
-    //         justifyContent: "center",
-    //         backgroundColor: "#FFFFFF",
-    //       }}
-    //     >
-    //       <Text style={{ alignSelf: "center", fontSize: 20 }}>
-    //         {this.props.errorMessage}
-    //       </Text>
-    //       <Button
-    //         style={styles.buttonStyle}
-    //         onPress={() => {
-    //           this.props.rePay();
-    //           this.props.navigation.navigate("Home");
-    //         }}
-    //       >
-    //         <Text>Back To Home</Text>
-    //       </Button>
-    //     </View>
-    //   );
-    // }
 
     return (
       <View style={{ flex: 1, marginTop: 50, backgroundColor: "#ffffff" }}>
@@ -286,7 +261,11 @@ const styles = StyleSheet.create({
     color: "#202945",
     fontWeight: "bold",
   },
-
+  hiddenButtonTextStyle: {
+    color: "#686868",
+    fontWeight: "bold",
+    display: "none",
+  },
   buttonStyle: {
     flexDirection: "column",
     alignItems: "center",
