@@ -63,7 +63,7 @@ class PaymentProcessContainer extends Component {
   }
 
   render() {
-    const progressStepsStyle = {
+    let progressStepsStyle = {
       activeStepIconBorderColor: "#D0C21D",
       activeLabelColor: "#202945",
       activeStepNumColor: "#ffffff",
@@ -123,7 +123,6 @@ class PaymentProcessContainer extends Component {
               {this.state.ScannedBarCode ? (
                 <View>
                   <Text style={{ fontSize: 20, margin: 8, color: "#ffffff" }}>
-                    {" "}
                     Membership ID :{this.state.memberShipId}
                   </Text>
                   <Button
@@ -159,15 +158,16 @@ class PaymentProcessContainer extends Component {
           </ProgressStep>
           <ProgressStep
             label="Payment"
-            onPrevious={() =>
+            onPrevious={() => {
               this.setState({
                 memberShipId: "",
                 connectionId: "",
                 refNumber: "",
                 amount: "",
                 ScannedBarCode: false,
-              })
-            }
+              });
+              this.props.rePay();
+            }}
             scrollViewProps={this.defaultScrollViewProps}
             nextBtnTextStyle={styles.buttonTextStyle}
             nextBtnDisabled={this.state.amount == ""}
@@ -207,11 +207,12 @@ class PaymentProcessContainer extends Component {
           <ProgressStep
             label="Confirm Pin"
             onSubmit={this.onSubmitSteps}
-            onPrevious={() =>
+            onPrevious={() => {
               this.setState({
                 pinCode: "",
-              })
-            }
+              });
+              this.props.rePay();
+            }}
             scrollViewProps={this.defaultScrollViewProps}
             nextBtnTextStyle={
               this.props.loading
@@ -241,6 +242,21 @@ class PaymentProcessContainer extends Component {
                   amount={this.state.amount}
                   onChangePinCode={(pinCode) => this.setState({ pinCode })}
                   errorMessage={this.props.errorMessage}
+                  onCancel={() => {
+                    this.props.rePay();
+
+                    this.setState({
+                      memberShipId: "",
+                      connectionId: "",
+                      refNumber: "",
+                      amount: "",
+                      pinCode: "",
+                      ScannedBarCode: false,
+                    });
+                    console.log(this.props.navigation);
+                    debugger;
+                    this.props.navigation.navigate("Scan");
+                  }}
                 />
               )}
             </View>
