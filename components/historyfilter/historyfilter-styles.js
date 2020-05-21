@@ -10,24 +10,24 @@ const styles = StyleSheet.create({
     borderColor: "#D0C21D",
     borderRadius: 5,
     padding: 10,
-    color: "#D0C21D"
+    color: "#D0C21D",
   },
   input: {
-    color: "#D0C21D"
+    color: "#202945",
   },
   datePickerViewLeft: {
     width: "50%",
     borderWidth: 2,
     borderColor: "#D0C21D",
     borderRadius: 5,
-    marginRight: 2
+    marginRight: 2,
   },
   datePickerViewRight: {
     width: "50%",
     borderWidth: 2,
     borderColor: "#D0C21D",
     borderRadius: 5,
-    marginLeft: 2
+    marginLeft: 2,
   },
 
   filter: {
@@ -40,13 +40,13 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 8,
     marginHorizontal: 16,
-    borderRadius: 10
+    borderRadius: 10,
   },
 
   datePicker: {
     borderWidth: 2,
     borderColor: "#D0C21D",
-    borderRadius: 5
+    borderRadius: 5,
   },
   buttonStyle: {
     flexDirection: "column",
@@ -65,13 +65,13 @@ const styles = StyleSheet.create({
 
     alignSelf: "center",
     padding: 10,
-    paddingTop: 5
+    paddingTop: 5,
   },
   paddingText: {
     paddingLeft: 10,
     paddingTop: 5,
-    paddingBottom: 5
-  }
+    paddingBottom: 5,
+  },
 });
 
 export { styles };

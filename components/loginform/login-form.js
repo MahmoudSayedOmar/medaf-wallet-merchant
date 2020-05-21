@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { LinearGradient } from "expo";
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
+  heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
 import {
@@ -11,7 +11,7 @@ import {
   StyleSheet,
   Platform,
   Image,
-  TextInput
+  TextInput,
 } from "react-native";
 import {
   Form,
@@ -21,7 +21,7 @@ import {
   Text,
   Spinner,
   Label,
-  Button
+  Button,
 } from "native-base";
 var logo = require("../../assets/download.jpg");
 export class LoginForm extends Component {
@@ -29,7 +29,7 @@ export class LoginForm extends Component {
     super();
     this.state = {
       userName: "",
-      password: ""
+      password: "",
     };
   }
 
@@ -38,7 +38,7 @@ export class LoginForm extends Component {
     loading: boolean,
     errorMessage: string,
     navigation: any,
-    tryLogin: UserLoginModel => void
+    tryLogin: (UserLoginModel) => void,
   };
 
   login() {
@@ -74,21 +74,21 @@ export class LoginForm extends Component {
         <Form>
           <TextInput
             value={this.state.userName}
-            onChangeText={txt => {
+            onChangeText={(txt) => {
               this.setState({ userName: txt });
             }}
             placeholder={"Email"}
-            placeholderTextColor="#D0C21D"
+            placeholderTextColor="#202945"
             style={styles.input}
           />
           <TextInput
             value={this.state.password}
-            onChangeText={txt => {
+            onChangeText={(txt) => {
               this.setState({ password: txt });
             }}
             secureTextEntry={true}
             placeholder={"Password"}
-            placeholderTextColor="#D0C21D"
+            placeholderTextColor="#202945"
             style={styles.input}
           />
 
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: "13%",
-    backgroundColor: "#FFFFFF"
+    backgroundColor: "#FFFFFF",
   },
 
   loginContainer: {
@@ -110,14 +110,14 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     shadowColor: "black",
     shadowOffset: { height: 0, width: 0 },
-    paddingTop: 20
+    paddingTop: 20,
   },
   centerLogo: {
     width: wp("100%"),
     height: hp("22%"),
     backgroundColor: "#FFFFFF",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   button: {
     flexDirection: "column",
@@ -132,25 +132,25 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignSelf: "center",
     padding: 10,
-    paddingTop: 5
+    paddingTop: 5,
   },
 
   forgetContainer: {
     flex: 1,
     // width: DEVICE_WIDTH,
-    flexDirection: "row-reverse"
+    flexDirection: "row-reverse",
   },
   forgetText: {
     color: "rgba(3, 3, 3, 0.5)",
     backgroundColor: "transparent",
-    fontSize: 14
+    fontSize: 14,
   },
   registerTextContainer: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "center",
     paddingTop: 20,
-    paddingBottom: 20
+    paddingBottom: 20,
   },
   input: {
     textAlign: "left",
@@ -159,8 +159,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#D0C21D",
     borderRadius: 5,
-    color: "#D0C21D",
+    color: "#202945",
 
-    margin: 10
-  }
+    margin: 10,
+  },
 });
