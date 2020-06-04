@@ -1,7 +1,13 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { HomeScreen, PaymentProcessScreen, LoginScreen } from "./screens";
+import {
+  HomeScreen,
+  PaymentProcessScreen,
+  LoginScreen,
+  FirstLoginScreen,
+  SelectMerchantContainer,
+} from "./screens";
 import { ApplicationScreen } from "./screens/application-screen.js";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
@@ -21,7 +27,7 @@ class App extends React.Component {
     await Expo.Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
-      Ionicons: require("native-base/Fonts/Ionicons.ttf")
+      Ionicons: require("native-base/Fonts/Ionicons.ttf"),
     });
     this.setState({ loading: false });
   }
@@ -37,7 +43,11 @@ class App extends React.Component {
         <NavigationContainer>
           <Stack.Navigator initialRouteName="LoginIn" headerMode="none">
             <Stack.Screen name="LoginIn" component={LoginScreen} />
-
+            <Stack.Screen name="FirstLogin" component={FirstLoginScreen} />
+            <Stack.Screen
+              name="SelectMerchant"
+              component={SelectMerchantContainer}
+            />
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Pay" component={PaymentProcessScreen} />
             <Stack.Screen name="Application" component={ApplicationScreen} />

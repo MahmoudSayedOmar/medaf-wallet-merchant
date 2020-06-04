@@ -6,12 +6,12 @@ import { connect } from "react-redux";
 
 import { Dispatch, bindActionCreators } from "redux";
 
-import { LoginForm } from "../components";
+import { FirstLoginForm } from "../components";
 
-import { State, tryLogin } from "../state";
+import { State, tryFirstLogin } from "../state";
 
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-class loginContainer extends Component {
+class firstloginContainer extends Component {
   constructor() {
     super();
     this.state = {
@@ -24,33 +24,28 @@ class loginContainer extends Component {
   static navigatorStyle = { navBarHidden: true };
   static mapStatetToProps(state: State) {
     return {
-      loginError: state.authorization.errorMessage,
-      isLoggedIn: state.authorization.isLoggedIn,
-      token: state.authorization.token,
-      loading: state.authorization.loading,
-      loginFail: state.authorization.loginFail,
       firstLogIn: state.authorization.firstLogIn,
+      loginError: state.authorization.firstLoginErrorMessage,
+      loading: state.authorization.loading,
     };
   }
 
   static mapDispatchToProps(dispatch: Dispatch) {
-    return bindActionCreators({ tryLogin }, dispatch);
+    return bindActionCreators({ tryFirstLogin }, dispatch);
   }
 
   props: {
     loginError: string,
     loading: boolean,
     isLoggedIn: boolean,
-    tryLogin: (userModel: UserLoginModel) => void,
+    tryFirstLogin: (data) => void,
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.isLoggedIn) {
-      if (nextProps.firstLogIn == true) {
-        this.props.navigation.navigate("FirstLogin");
-      } else {
-        this.props.navigation.navigate("SelectMerchant");
-      }
+    if (nextProps.firstLogIn == false) {
+      this.props.navigation.reset({
+        routes: [{ name: "Application" }],
+      });
     }
 
     this.setState({ isMounted: !this.state.isMounted });
@@ -63,23 +58,20 @@ class loginContainer extends Component {
           enableOnAndroid={true}
           keyboardShouldPersistTaps="handled"
         >
-          <LoginForm
+          <FirstLoginForm
             loading={this.props.loading}
-            tryLogin={this.props.tryLogin}
+            tryFirstLogin={this.props.tryFirstLogin}
             errorMessage={this.props.loginError}
-            isLoggedIn={this.props.isLoggedIn}
-            navigation={this.props.navigation}
-            loginFail={this.props.loginFail}
           />
         </KeyboardAwareScrollView>
       </View>
     );
   }
 }
-export const LoginScreen = connect(
-  loginContainer.mapStatetToProps,
-  loginContainer.mapDispatchToProps
-)(loginContainer);
+export const FirstLoginScreen = connect(
+  firstloginContainer.mapStatetToProps,
+  firstloginContainer.mapDispatchToProps
+)(firstloginContainer);
 
 var styles = StyleSheet.create({
   container: {

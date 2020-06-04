@@ -9,6 +9,9 @@ export interface AuthorizationState {
   groupid: String;
   amount: Number;
   loginFail: Boolean;
+  firstLogIn: Boolean;
+  haveSetFirstPassword: Boolean;
+  firstLoginErrorMessage: String;
 }
 
 export const AuthorizationInitialState: AuthorizationState = {
@@ -21,5 +24,8 @@ export const AuthorizationInitialState: AuthorizationState = {
   brandID: "",
   groupid: "",
   amount: 0,
-  loginFail: false
+  loginFail: false,
+  firstLogIn: true,
+  haveSetFirstPassword: false,
+  firstLoginErrorMessage: "",
 };

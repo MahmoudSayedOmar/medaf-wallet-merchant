@@ -6,10 +6,10 @@ import { Button } from "native-base";
 import { Dispatch, bindActionCreators } from "redux";
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
+  heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 var logo = require("../assets/download.jpg");
-
+import { loggingout } from "../state";
 export class SettingsContainer extends Component {
   constructor() {
     super();
@@ -19,7 +19,7 @@ export class SettingsContainer extends Component {
   }
 
   static mapDispatchToProps(dispatch: Dispatch) {
-    return bindActionCreators({}, dispatch);
+    return bindActionCreators({ loggingout }, dispatch);
   }
 
   render() {
@@ -34,6 +34,17 @@ export class SettingsContainer extends Component {
         >
           <Text style={{ color: "#202945" }}>Change Pin</Text>
         </Button>
+        <Button
+          style={styles.buttonStyle}
+          onPress={() => {
+            this.props.loggingout();
+            this.props.navigation.reset({
+              routes: [{ name: "LoginIn" }],
+            });
+          }}
+        >
+          <Text style={{ color: "#202945" }}>Log Out</Text>
+        </Button>
       </View>
     );
   }
@@ -47,12 +58,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: "3%",
-    backgroundColor: "#FFFFFF"
+    backgroundColor: "#FFFFFF",
   },
   centerLogo: {
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: "5%"
+    marginBottom: "5%",
   },
   buttonStyle: {
     flexDirection: "column",
@@ -69,6 +80,6 @@ const styles = StyleSheet.create({
     height: 31,
     marginTop: 10,
     padding: 10,
-    alignSelf: "center"
-  }
+    alignSelf: "center",
+  },
 });

@@ -16,6 +16,9 @@ export function authorizationReducer(
       return {
         ...state,
         loading: true,
+        userName: action.payload.userName,
+        firstLogIn: false,
+        isLoggedIn: false,
       };
     }
 
@@ -29,6 +32,7 @@ export function authorizationReducer(
         userID: action.payload.LoginId,
         brandID: action.payload.BrandId,
         groupID: action.payload.GroupId,
+        firstLogIn: action.payload.IsFirstLogin,
         amount: 0,
         loginFail: false,
       };
@@ -44,7 +48,30 @@ export function authorizationReducer(
         loginFail: true,
       };
     }
+    case types.ON_FIRST_LOGIN: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
 
+    case types.FIRST_LOGIN_SUCCESS: {
+      return {
+        ...state,
+        firstLogIn: false,
+        loading: false,
+        firstLoginErrorMessage: "",
+      };
+    }
+
+    case types.FIRST_LOGIN_FAIL: {
+      return {
+        ...state,
+        firstLogIn: true,
+        loading: false,
+        firstLoginErrorMessage: action.payload,
+      };
+    }
     default:
       return state;
   }

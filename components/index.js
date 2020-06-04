@@ -11,3 +11,7 @@ export * from "./loginform";
 export * from "./historyheader/historyheader";
 
 export * from "./transactionslisting/transactionslisting";
+
+export * from "./firstloginform";
+
+export * from "./selectMerchant";
