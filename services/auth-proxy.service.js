@@ -10,7 +10,7 @@ export class AuthProxyService {
 
     return await axios({
       method: "post",
-      url: `${BASE_URL}User/Authenticate`,
+      url: `${BASE_URL}User/MerchantAuthenticate`,
       data: data,
       config: {
         headers: {
@@ -19,7 +19,7 @@ export class AuthProxyService {
         },
       },
     }).catch(function (err) {
-      return err;
+      return err.response;
     });
   }
   async setFirstPassword(setFirstPasswordData) {
@@ -29,11 +29,30 @@ export class AuthProxyService {
     data["Password"] = setFirstPasswordData.newPassword;
     data["ConfirmPassword"] = setFirstPasswordData.newPassword;
 
-    let URL = `${BASE_URL}User/ChangePassword`;
+    let URL = `${BASE_URL}User/MerchantChangePassword`;
     return await axios({
       method: "post",
       url: URL,
       data: data,
+      config: {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "content-Type": "application/json",
+        },
+      },
+    }).catch(function (err) {
+      debugger;
+      return err.response;
+    });
+  }
+
+  async setSelectedMerchant(customerId, token) {
+    debugger;
+    let URL = `${BASE_URL}User/SelectMerchant?customerId=${customerId}`;
+    return await axios({
+      method: "post",
+      url: URL,
+      headers: { token },
       config: {
         headers: {
           "Access-Control-Allow-Origin": "*",

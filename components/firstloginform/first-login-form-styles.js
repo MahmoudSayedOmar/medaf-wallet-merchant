@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
   },
   passwordContainer: {
     flexDirection: "row",
-
     textAlign: "left",
     paddingLeft: 8,
     height: 50,
@@ -40,7 +39,6 @@ const styles = StyleSheet.create({
     borderColor: "#D0C21D",
     borderRadius: 5,
     color: "#D0C21D",
-
     marginLeft: 10,
     marginRight: 10,
     marginBottom: 15,

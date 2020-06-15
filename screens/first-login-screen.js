@@ -43,9 +43,7 @@ class firstloginContainer extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.firstLogIn == false) {
-      this.props.navigation.reset({
-        routes: [{ name: "Application" }],
-      });
+      this.props.navigation.navigate("SelectMerchant");
     }
 
     this.setState({ isMounted: !this.state.isMounted });

@@ -4,51 +4,66 @@ import { View, StyleSheet, Text } from "react-native";
 import { connect } from "react-redux";
 import { Dispatch, bindActionCreators } from "redux";
 import { Picker } from "native-base";
+import { State, trySetCurrentMerchant } from "../state";
+
 import { SelectMerchantComponent } from "../components";
-export class SelectMerchantContainer extends Component {
+class SelectMerchantContainer extends Component {
   constructor() {
     super();
     this.state = {
-      selected: "undefined",
-      merchantList: [
-        { id: "1", merchantName: "name1" },
-        { id: "2", merchantName: "name2" },
-        { id: "3", merchantName: "name3" }
-      ]
+      selected: undefined,
+      merchantList: [],
     };
   }
   static mapStatetToProps(state: State) {
-    return {};
+    return {
+      merchants: state.authorization.merchants,
+      haveSelectMerchant: state.authorization.haveSelectMerchant,
+    };
   }
 
   static mapDispatchToProps(dispatch: Dispatch) {
-    return bindActionCreators({}, dispatch);
+    return bindActionCreators({ trySetCurrentMerchant }, dispatch);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.haveSelectMerchant) {
+      this.props.navigation.reset({
+        routes: [{ name: "Application" }],
+      });
+    }
   }
 
   onValueChange(value: string) {
+    debugger;
     this.setState({
-      selected: value
+      selected: value,
     });
   }
   onNavigateTo(goTo) {
-    this.props.navigation.navigate(goTo);
+    if (this.state.selected != undefined) {
+      this.props.trySetCurrentMerchant(this.state.selected);
+      // debugger;
+      // this.props.navigation.navigate(goTo);
+    }
   }
 
   render() {
-    let allMerchantList = this.state.merchantList.map((eachMerchant, index) => {
+    let allMerchantList = this.props.merchants.map((eachMerchant, index) => {
       return (
         <Picker.Item
-          label={eachMerchant.merchantName}
-          value={eachMerchant.id}
+          label={eachMerchant.Name}
+          value={eachMerchant.Id}
+          key={eachMerchant.Id}
         />
       );
     });
     return (
       <View style={styles.container}>
         <SelectMerchantComponent
-          onValueChange={value => this.onValueChange(value)}
+          onValueChange={(value) => this.onValueChange(value)}
           selected={this.state.selected}
-          onNavigateTo={goTo => this.onNavigateTo(goTo)}
+          onNavigateTo={(goTo) => this.onNavigateTo(goTo)}
           listOfMerchants={allMerchantList}
         />
       </View>
@@ -65,6 +80,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: "3%",
-    backgroundColor: "#FFFFFF"
-  }
+    backgroundColor: "#FFFFFF",
+  },
 });

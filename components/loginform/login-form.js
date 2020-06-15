@@ -4,6 +4,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { styles } from "./login-form-styles";
 
 import {
   Dimensions,
@@ -22,6 +23,7 @@ import {
   Spinner,
   Label,
   Button,
+  Icon,
 } from "native-base";
 var logo = require("../../assets/download.jpg");
 export class LoginForm extends Component {
@@ -30,6 +32,7 @@ export class LoginForm extends Component {
     this.state = {
       userName: "",
       password: "",
+      showPassword: true,
     };
   }
 
@@ -40,6 +43,11 @@ export class LoginForm extends Component {
     navigation: any,
     tryLogin: (UserLoginModel) => void,
   };
+  toggleSwitch() {
+    this.setState({
+      showPassword: !this.state.showPassword,
+    });
+  }
 
   login() {
     this.props.tryLogin(this.state);
@@ -81,86 +89,27 @@ export class LoginForm extends Component {
             placeholderTextColor="#202945"
             style={styles.input}
           />
-          <TextInput
-            value={this.state.password}
-            onChangeText={(txt) => {
-              this.setState({ password: txt });
-            }}
-            secureTextEntry={true}
-            placeholder={"Password"}
-            placeholderTextColor="#202945"
-            style={styles.input}
-          />
-
+          <View style={styles.passwordContainer}>
+            <TextInput
+              value={this.state.password}
+              onChangeText={(txt) => {
+                this.setState({ password: txt });
+              }}
+              secureTextEntry={this.state.showPassword}
+              onChangeText={(password) => this.setState({ password })}
+              placeholder={"Enter your password"}
+              placeholderTextColor="#202945"
+              style={{ flex: 1, color: "#202945" }}
+            />
+            <Icon
+              name={this.state.showPassword ? "eye-off" : "eye"}
+              onPress={() => this.toggleSwitch()}
+              style={styles.showHideIcon}
+            />
+          </View>
           {loadingSpinner}
         </Form>
       </View>
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: "13%",
-    backgroundColor: "#FFFFFF",
-  },
-
-  loginContainer: {
-    shadowOpacity: 0.25,
-    shadowRadius: 5,
-    shadowColor: "black",
-    shadowOffset: { height: 0, width: 0 },
-    paddingTop: 20,
-  },
-  centerLogo: {
-    width: wp("100%"),
-    height: hp("22%"),
-    backgroundColor: "#FFFFFF",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  button: {
-    flexDirection: "column",
-    alignItems: "center",
-    width: "auto",
-    height: hp("5"),
-    backgroundColor: "#D0C21D",
-    shadowColor: "#000000",
-    color: "#202945",
-    borderColor: "#202945",
-    borderWidth: 1,
-    marginTop: 10,
-    alignSelf: "center",
-    padding: 10,
-    paddingTop: 5,
-  },
-
-  forgetContainer: {
-    flex: 1,
-    // width: DEVICE_WIDTH,
-    flexDirection: "row-reverse",
-  },
-  forgetText: {
-    color: "rgba(3, 3, 3, 0.5)",
-    backgroundColor: "transparent",
-    fontSize: 14,
-  },
-  registerTextContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    paddingTop: 20,
-    paddingBottom: 20,
-  },
-  input: {
-    textAlign: "left",
-    paddingLeft: 8,
-    height: 50,
-    borderWidth: 2,
-    borderColor: "#D0C21D",
-    borderRadius: 5,
-    color: "#202945",
-
-    margin: 10,
-  },
-});

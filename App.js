@@ -6,7 +6,7 @@ import {
   PaymentProcessScreen,
   LoginScreen,
   FirstLoginScreen,
-  SelectMerchantContainer,
+  SelectMerchantScreen,
 } from "./screens";
 import { ApplicationScreen } from "./screens/application-screen.js";
 import { Provider } from "react-redux";
@@ -46,7 +46,7 @@ class App extends React.Component {
             <Stack.Screen name="FirstLogin" component={FirstLoginScreen} />
             <Stack.Screen
               name="SelectMerchant"
-              component={SelectMerchantContainer}
+              component={SelectMerchantScreen}
             />
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Pay" component={PaymentProcessScreen} />

@@ -13,5 +13,5 @@ export const PaymentInitialState: PaymentState = {
   pinCode: "",
   status: 0,
   loading: 0,
-  errorMessage: ""
+  errorMessage: "",
 };

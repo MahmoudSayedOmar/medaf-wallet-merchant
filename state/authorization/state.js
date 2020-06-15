@@ -12,6 +12,12 @@ export interface AuthorizationState {
   firstLogIn: Boolean;
   haveSetFirstPassword: Boolean;
   firstLoginErrorMessage: String;
+  selectedMerchant: Number;
+  url: String;
+  selectedMerchantName: String;
+  memberShipId: String;
+  merchants: Array;
+  haveSelectMerchant: Boolean;
 }
 
 export const AuthorizationInitialState: AuthorizationState = {
@@ -28,4 +34,10 @@ export const AuthorizationInitialState: AuthorizationState = {
   firstLogIn: true,
   haveSetFirstPassword: false,
   firstLoginErrorMessage: "",
+  selectedMerchant: null,
+  merchants: [],
+  url: "",
+  selectedMerchantName: "",
+  memberShipId: "",
+  haveSelectMerchant: false,
 };

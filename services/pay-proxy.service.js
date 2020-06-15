@@ -13,11 +13,11 @@ export class PayProxyService {
       config: {
         headers: {
           "Access-Control-Allow-Origin": "*",
-          "content-Type": "application/json"
-        }
-      }
-    }).catch(function(err) {
-      return err;
+          "content-Type": "application/json",
+        },
+      },
+    }).catch(function (err) {
+      return err.response;
     });
   }
 }

@@ -26,13 +26,12 @@ export function authorizationReducer(
       debugger;
       return {
         ...state,
-        token: action.payload.Token,
+        token: action.payload.token,
         isLoggedIn: true,
         loading: false,
-        userID: action.payload.LoginId,
-        brandID: action.payload.BrandId,
-        groupID: action.payload.GroupId,
-        firstLogIn: action.payload.IsFirstLogin,
+        userID: action.payload.userId,
+        firstLogIn: action.payload.isFirstLogin,
+        merchants: action.payload.merchants,
         amount: 0,
         loginFail: false,
       };
@@ -60,6 +59,7 @@ export function authorizationReducer(
         ...state,
         firstLogIn: false,
         loading: false,
+        token: action.payload,
         firstLoginErrorMessage: "",
       };
     }
@@ -72,6 +72,35 @@ export function authorizationReducer(
         firstLoginErrorMessage: action.payload,
       };
     }
+    case types.ON_SELECT_CURRENT_MERCHANT: {
+      debugger;
+      return {
+        ...state,
+        selectedMerchant: action.payload,
+      };
+    }
+    case types.SELECT_CURRENT_MERCHANT_SUCCESS: {
+      debugger;
+      return {
+        ...state,
+        groupid: action.payload.groupid,
+        amount: action.payload.amount,
+        url: action.payload.url,
+        selectedMerchantName: action.payload.name,
+        memberShipId: action.payload.memberShipId,
+        haveSelectMerchant: true,
+      };
+    }
+    case types.SELECT_CURRENT_MERCHANT_FAIL: {
+      debugger;
+      return {
+        ...state,
+
+        haveSelectMerchant: false,
+      };
+    }
+    //    "memberShipId": "54655",
+
     default:
       return state;
   }

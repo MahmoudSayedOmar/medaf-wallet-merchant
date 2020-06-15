@@ -12,7 +12,9 @@ class HomeContainer extends Component {
   }
 
   static mapStatetToProps(state: State) {
-    return {};
+    return {
+      url: state.authorization.url,
+    };
   }
 
   static mapDispatchToProps(dispatch: Dispatch) {
@@ -23,7 +25,10 @@ class HomeContainer extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.centerLogo}>
-          <Image source={logo} style={{ width: 150 }} />
+          <Image
+            source={{ uri: this.props.url }}
+            style={{ width: 150, height: 150 }}
+          />
         </View>
 
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
@@ -47,11 +52,11 @@ const styles = StyleSheet.create({
     flex: 1,
 
     paddingTop: "3%",
-    backgroundColor: "#FFFFFF"
+    backgroundColor: "#FFFFFF",
   },
   centerLogo: {
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: "5%"
-  }
+    marginBottom: "5%",
+  },
 });
