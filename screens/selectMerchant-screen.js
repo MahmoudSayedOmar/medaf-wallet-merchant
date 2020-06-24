@@ -7,6 +7,7 @@ import { Picker } from "native-base";
 import { State, trySetCurrentMerchant } from "../state";
 
 import { SelectMerchantComponent } from "../components";
+
 class SelectMerchantContainer extends Component {
   constructor() {
     super();
@@ -31,6 +32,9 @@ class SelectMerchantContainer extends Component {
       this.props.navigation.reset({
         routes: [{ name: "Application" }],
       });
+    }
+    if (this.state.selected == undefined && this.props.merchants) {
+      this.setState({ selected: this.props.merchants[0].Id });
     }
   }
 

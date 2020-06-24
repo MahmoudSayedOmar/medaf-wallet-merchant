@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { View, StyleSheet, Image } from "react-native";
+import { Text } from "native-base";
+
 import { connect } from "react-redux";
 import { EveryButton } from "../components";
 import { Dispatch, bindActionCreators } from "redux";
@@ -14,6 +16,7 @@ class HomeContainer extends Component {
   static mapStatetToProps(state: State) {
     return {
       url: state.authorization.url,
+      merchantName: state.authorization.selectedMerchantName,
     };
   }
 
@@ -24,6 +27,7 @@ class HomeContainer extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text>{this.props.merchantName}</Text>
         <View style={styles.centerLogo}>
           <Image
             source={{ uri: this.props.url }}
