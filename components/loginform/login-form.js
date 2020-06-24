@@ -83,7 +83,7 @@ export class LoginForm extends Component {
           <TextInput
             value={this.state.userName}
             onChangeText={(txt) => {
-              this.setState({ userName: txt });
+              this.setState({ userName: txt.replace(/\s/g, "") });
             }}
             placeholder={"Email"}
             placeholderTextColor="#202945"
