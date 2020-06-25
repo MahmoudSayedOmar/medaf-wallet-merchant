@@ -5,6 +5,6 @@ export default PaymentConfirmationStyles = {
     backgroundColor: "#202945",
     borderWidth: 2,
     borderColor: "#D0C21D",
-    borderRadius: 5
-  }
+    borderRadius: 5,
+  },
 };
