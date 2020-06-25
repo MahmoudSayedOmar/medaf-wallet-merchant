@@ -17,6 +17,7 @@ class SelectMerchantContainer extends Component {
     };
   }
   static mapStatetToProps(state: State) {
+    
     return {
       merchants: state.authorization.merchants,
       haveSelectMerchant: state.authorization.haveSelectMerchant,
@@ -26,8 +27,14 @@ class SelectMerchantContainer extends Component {
   static mapDispatchToProps(dispatch: Dispatch) {
     return bindActionCreators({ trySetCurrentMerchant }, dispatch);
   }
-
+componentWillMount(){
+  debugger;
+  if (this.state.selected == undefined && this.props.merchants) {
+    this.setState({ selected: this.props.merchants[0].Id });
+  }
+}
   componentWillReceiveProps(nextProps) {
+    debugger;
     if (nextProps.haveSelectMerchant) {
       this.props.navigation.reset({
         routes: [{ name: "Application" }],
@@ -45,14 +52,15 @@ class SelectMerchantContainer extends Component {
     });
   }
   onNavigateTo(goTo) {
+
     if (this.state.selected != undefined) {
-      this.props.trySetCurrentMerchant(this.state.selected);
-      // debugger;
-      // this.props.navigation.navigate(goTo);
-    }
+ 
+    this.props.trySetCurrentMerchant(this.state.selected);
+  }
   }
 
   render() {
+
     let allMerchantList = this.props.merchants.map((eachMerchant, index) => {
       return (
         <Picker.Item
