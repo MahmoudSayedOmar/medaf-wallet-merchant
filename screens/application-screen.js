@@ -7,13 +7,14 @@ import { Dispatch, bindActionCreators } from "redux";
 import { Ionicons } from "@expo/vector-icons";
 
 import { HomeScreen } from "./home-screen";
+// import { InvoiceScreen } from "./invoice-screen";
 import { HistoryScreen } from "./history-screen";
 import { SettingsScreen } from "./settings-screen";
 import { ChangePinCodeScreen } from "./change-pin-code";
 
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
+  heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -34,8 +35,8 @@ function HomeStackScreen() {
           headerStyle: { borderWidth: 1, borderBottomColor: "#D0C21D" },
           headerTintColor: "#D0C21D",
           headerTitleStyle: {
-            fontWeight: "bold"
-          }
+            fontWeight: "bold",
+          },
         }}
       />
       <HomeStack.Screen
@@ -49,8 +50,8 @@ function HomeStackScreen() {
           headerBackTitle: "back",
           headerTitleStyle: {
             fontWeight: "bold",
-            color: "#D0C21D"
-          }
+            color: "#D0C21D",
+          },
         }}
       />
     </HomeStack.Navigator>
@@ -71,8 +72,8 @@ function SettingsStackScreen() {
           headerStyle: { borderWidth: 1, borderBottomColor: "#D0C21D" },
           headerTintColor: "#D0C21D",
           headerTitleStyle: {
-            fontWeight: "bold"
-          }
+            fontWeight: "bold",
+          },
         }}
       />
       <SettingsStack.Screen
@@ -86,8 +87,8 @@ function SettingsStackScreen() {
           headerBackTitle: "back",
           headerTitleStyle: {
             fontWeight: "bold",
-            color: "#D0C21D"
-          }
+            color: "#D0C21D",
+          },
         }}
       />
     </SettingsStack.Navigator>
@@ -99,7 +100,7 @@ export default class ApplicationContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isReady: false
+      isReady: false,
     };
   }
   static mapStatetToProps(state: State) {
@@ -130,13 +131,14 @@ export default class ApplicationContainer extends React.Component {
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
-          }
+          },
         })}
         tabBarOptions={{
           activeTintColor: "#D0C21D",
-          inactiveTintColor: "gray"
+          inactiveTintColor: "gray",
         }}
       >
+        {/* <Tab.Screen name="Invoice" component={InvoiceScreen} /> */}
         <Tab.Screen name="Home" component={HomeStackScreen} />
         <Tab.Screen name="History" component={HistoryScreen} />
         <Tab.Screen name="Settings" component={SettingsStackScreen} />
@@ -153,12 +155,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: "3%",
-    backgroundColor: "#FFFFFF"
+    backgroundColor: "#FFFFFF",
   },
   centerLogo: {
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: "5%"
+    marginBottom: "5%",
   },
   buttonStyle: {
     flexDirection: "column",
@@ -175,6 +177,6 @@ const styles = StyleSheet.create({
     height: 31,
     marginTop: 10,
     padding: 10,
-    alignSelf: "center"
-  }
+    alignSelf: "center",
+  },
 });
